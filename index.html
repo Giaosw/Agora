@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agora by Porcelanosa</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Video de fondo -->
+    <video autoplay muted loop id="video-bg">
+        <source src="videos/intro.mp4" type="video/mp4">
+    </video>
+
+    <!-- Contenido principal -->
+    <div class="container d-flex flex-column justify-content-center align-items-center text-center text-white content">
+        <h1 class="display-3 mt-5">Agora by Porcelanosa</h1>
+        <div class="mt-4">
+            <button id="btn-registrarse" class="btn btn-primary m-2">Registrarse</button>
+            <button id="btn-ingresar" class="btn btn-success m-2">Ingresar</button>
+            <button id="btn-consulta-envios" class="btn btn-warning m-2">Consulta de envíos</button>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registroModalLabel">Registro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="pages/AgoraDesign.html">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Correo" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Primer Apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Dirección" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="tel" class="form-control" placeholder="Teléfono" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Ingreso -->
+    <div class="modal fade" id="ingresoModal" tabindex="-1" aria-labelledby="ingresoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ingresoModalLabel">Ingresar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="pages/AgoraDesign.html">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Correo" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="Contraseña" required>
+                        </div>
+                        <div class="mb-3">
+                            <a href="#">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón del Chatbot -->
+    <div id="chatbot-icon">
+        <img src="assets/chatbot-icon.png" alt="Chatbot" width="50">
+    </div>
+
+    <!-- Chatbox -->
+    <div id="chatbox">
+        <div id="chat-messages"></div>
+        <div class="input-group">
+            <input type="text" id="user-input" placeholder="Escribe un mensaje..." class="form-control">
+            <button id="send-button" class="btn btn-info">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y Script personalizado -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+/* Video de fondo */
+#video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* Contenido principal */
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Botón del chatbot */
+#chatbot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Estilo del chatbox */
+#chatbox {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: #1e1e1e;
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+    z-index: 2;
+    flex-direction: column;
+}
+
+/* Estilo de los modales */
+.modal-content {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+/* Alineación de los botones */
+button {
+    width: 100%;
+}
+
+/* Estilo de los botones */
+button.btn {
+    margin: 10px 0;
+}

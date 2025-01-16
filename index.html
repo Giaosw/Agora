@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agora by Porcelanosa</title>
     
+    <!-- Fuente de Porcelanosa -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilos personalizados -->
@@ -12,18 +15,20 @@
 </head>
 <body>
 
-    <!-- Video de fondo -->
-    <video autoplay muted loop id="video-bg">
-        <source src="videos/intro.mp4" type="video/mp4">
-    </video>
+    <!-- Contenedor del video con opacidad negra -->
+    <div id="video-container">
+        <div id="video-overlay"></div> <!-- Capa con opacidad negra -->
+        <video autoplay muted loop id="video-bg">
+            <source src="videos/intro.mp4" type="video/mp4">
+        </video>
+    </div>
 
-    <!-- Contenido principal -->
-    <div class="container d-flex flex-column justify-content-center align-items-center text-center text-white content">
-        <h1 class="display-3 mt-5 normal-text">Agora by Porcelanosa</h1>
-        <div class="mt-4 d-flex justify-content-center">
-            <button id="btn-registrarse" class="btn btn-outline-dark m-2 btn-lg custom-btn">Registrarse</button>
-            <button id="btn-ingresar" class="btn btn-dark m-2 btn-lg custom-btn">Ingresar</button>
-            <button id="btn-consulta-envios" class="btn btn-dark m-2 btn-lg custom-btn">Consulta de envíos</button>
+    <!-- Contenido principal centrado -->
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center text-center text-white content">
+        <h1 class="display-3 mt-5">Agora by Porcelanosa</h1>
+        <div class="mt-4 d-flex flex-column flex-md-row justify-content-center align-items-center">
+            <button id="btn-registrarse" class="btn btn-outline-dark m-2 w-75 w-md-auto">Registrarse</button>
+            <button id="btn-ingresar" class="btn m-2 w-75 w-md-auto" style="background-color: #cca43d; border-color: #cca43d;">Ingresar</button>
         </div>
     </div>
 
@@ -98,7 +103,7 @@
         <div id="chat-messages"></div>
         <div class="input-group">
             <input type="text" id="user-input" placeholder="Escribe un mensaje..." class="form-control">
-            <div id="send-button" class="btn btn-info">Enviar</div>
+            <button id="send-button" class="btn btn-info">Enviar</button>
         </div>
     </div>
 

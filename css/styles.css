@@ -1,80 +1,112 @@
+/* Tipografía de Porcelanosa */
+body {
+    font-family: 'DM Serif Display', serif;
+}
+
+/* Contenedor del video de fondo */
+#video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    display: block;
+}
+
+/* Capa con opacidad negra */
+#video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* opacidad negra */
+    z-index: 1;
+}
+
 /* Video de fondo */
 #video-bg {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
-    opacity: 0.5;
+    z-index: 0;  /* Asegura que el video esté detrás del overlay */
 }
 
-/* Contenido principal */
+/* Estilos del contenido */
 .content {
     position: relative;
-    z-index: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Título sin estilo adicional */
-.normal-text {
-    font-size: 4rem;
-    font-weight: bold;
-    animation: fadeIn 2s ease-out;
+    z-index: 2;
     text-align: center;
 }
 
-/* Animación de entrada */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+/* Botones centrados */
+button {
+    width: 100%; /* Hace los botones más grandes en dispositivos pequeños */
+}
+
+/* Botones en dispositivos más grandes */
+@media (min-width: 768px) {
+    button {
+        width: auto; /* Vuelve los botones a su tamaño original en pantallas medianas */
     }
-    to {
-        opacity: 1;
-    }
 }
 
-/* Estilo para los botones - Crecimiento horizontal */
-.custom-btn {
-    min-width: 200px; /* Ajuste del tamaño */
-    transition: background-color 0.3s, width 0.3s;
-}
-
-.custom-btn:hover {
-    background-color: #cca43d;
-    color: white;
-}
-
-/* Estilo para los botones Registrarse */
+/* Estilo del botón registrarse */
 #btn-registrarse {
+    transition: background-color 0.3s;
     background-color: transparent;
-    border-color: #cca43d;
+    border: 1px solid #cca43d;
+    color: white;
 }
 
 #btn-registrarse:hover {
     background-color: #cca43d;
     color: white;
+    border-color: #cca43d;
 }
 
-/* Estilo del chatbot - Circular y sombra */
+/* Estilo del botón ingresar */
+#btn-ingresar {
+    background-color: #cca43d;
+    border-color: #cca43d;
+    color: white;
+}
+
+#btn-ingresar:hover {
+    background-color: #a3852d;
+    border-color: #a3852d;
+}
+
+/* Estilos de botones dentro de los formularios */
+.modal .btn {
+    background-color: #cca43d; /* El mismo color que el botón ingresar */
+    border-color: #cca43d;
+    color: white;
+}
+
+.modal .btn:hover {
+    background-color: #a3852d;
+    border-color: #a3852d;
+}
+
+/* Estilo del chatbot */
 #chatbot-icon {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    cursor: pointer;
     background-color: white;
     border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
     z-index: 2;
 }
 
-/* Estilo del chatbox */
 #chatbox {
     display: none;
     position: fixed;
@@ -89,38 +121,4 @@
     box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
     z-index: 2;
     flex-direction: column;
-}
-
-/* Estilo de los modales */
-.modal-content {
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-.modal-content input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-}
-
-/* Estilo de los botones */
-button.btn {
-    margin: 10px 10px;
-}
-
-/* Estilo del botón de envío del chat */
-#send-button {
-    cursor: pointer;
-    background-color: #00c6ff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s;
-}
-
-#send-button:hover {
-    background-color: #00a3cc;
 }

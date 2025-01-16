@@ -14,14 +14,63 @@
 .content {
     position: relative;
     z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Botón del chatbot */
+/* Título sin estilo adicional */
+.normal-text {
+    font-size: 4rem;
+    font-weight: bold;
+    animation: fadeIn 2s ease-out;
+    text-align: center;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Estilo para los botones - Crecimiento horizontal */
+.custom-btn {
+    min-width: 200px; /* Ajuste del tamaño */
+    transition: background-color 0.3s, width 0.3s;
+}
+
+.custom-btn:hover {
+    background-color: #cca43d;
+    color: white;
+}
+
+/* Estilo para los botones Registrarse */
+#btn-registrarse {
+    background-color: transparent;
+    border-color: #cca43d;
+}
+
+#btn-registrarse:hover {
+    background-color: #cca43d;
+    color: white;
+}
+
+/* Estilo del chatbot - Circular y sombra */
 #chatbot-icon {
     position: fixed;
     bottom: 20px;
     right: 20px;
     cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 10px;
     z-index: 2;
 }
 
@@ -55,12 +104,23 @@
     margin: 5px 0;
 }
 
-/* Alineación de los botones */
-button {
-    width: 100%;
-}
-
 /* Estilo de los botones */
 button.btn {
-    margin: 10px 0;
+    margin: 10px 10px;
+}
+
+/* Estilo del botón de envío del chat */
+#send-button {
+    cursor: pointer;
+    background-color: #00c6ff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+}
+
+#send-button:hover {
+    background-color: #00a3cc;
 }

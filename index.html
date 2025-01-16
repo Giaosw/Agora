@@ -4,111 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agora by Porcelanosa</title>
-    
-    <!-- Fuente de Porcelanosa -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="70" tabindex="0">
 
-    <!-- Contenedor del video con opacidad negra -->
+    <!-- Video de fondo con overlay -->
     <div id="video-container">
-        <div id="video-overlay"></div> <!-- Capa con opacidad negra -->
         <video autoplay muted loop id="video-bg">
             <source src="videos/intro.mp4" type="video/mp4">
         </video>
+        <div id="video-overlay"></div>
     </div>
 
-    <!-- Contenido principal centrado -->
-    <div class="container-fluid d-flex flex-column justify-content-center align-items-center text-center text-white content">
-        <h1 class="display-3 mt-5">Agora by Porcelanosa</h1>
-        <div class="mt-4 d-flex flex-column flex-md-row justify-content-center align-items-center">
-            <button id="btn-registrarse" class="btn btn-outline-dark m-2 w-75 w-md-auto">Registrarse</button>
-            <button id="btn-ingresar" class="btn m-2 w-75 w-md-auto" style="background-color: #cca43d; border-color: #cca43d;">Ingresar</button>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">Agora</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#que-es-agora">¿Qué es Agora?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#disenos">Diseños</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex">
+                <button id="btn-registrarse-nav" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#registroModal">Registrarse</button>
+                <button id="btn-ingresar-nav" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#ingresoModal">Ingresar</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección: Inicio -->
+    <section id="inicio" class="vh-100 d-flex align-items-center justify-content-center text-white">
+        <div class="text-center">
+            <h1 class="display-3">Bienvenido a Agora</h1>
+            <p>Descubre diseños innovadores y personalizados.</p>
+        </div>
+    </section>
+
+    <!-- Sección: ¿Qué es Agora? -->
+    <section id="que-es-agora" class="vh-100 d-flex align-items-center justify-content-center bg-dark text-white">
+        <div class="container">
+            <h2 class="text-center">¿Qué es Agora?</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, sapien vel hendrerit fermentum, nisi libero fermentum metus, nec bibendum orci elit a felis.</p>
+        </div>
+    </section>
+
+    <!-- Sección: Diseños -->
+    <section id="disenos" class="vh-100 d-flex align-items-center justify-content-center text-white">
+        <div class="container">
+            <h2 class="text-center">Nuestros Diseños</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </section>
+
+    <!-- Botón del Chatbot -->
+    <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;">
+        <button id="chatbot-button" class="btn btn-warning rounded-circle shadow">💬</button>
+        <div id="chatbot-window" class="d-none position-absolute bottom-100 end-0 mb-2 p-3 bg-light rounded shadow">
+            <p>Hola ¿En qué te puedo ayudar?</p>
+            <input type="text" class="form-control" placeholder="Escribe un mensaje...">
         </div>
     </div>
 
     <!-- Modal de Registro -->
-    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+    <div class="modal fade" id="registroModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="registroModalLabel">Registro</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5>Registro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <form action="pages/AgoraDesign.html">
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Correo" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Nombre" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Primer Apellido" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Dirección" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="tel" class="form-control" placeholder="Teléfono" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="Contraseña" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">Registrarse</button>
+                        <input type="email" class="form-control mb-3" placeholder="Correo" required>
+                        <input type="text" class="form-control mb-3" placeholder="Nombre" required>
+                        <input type="password" class="form-control mb-3" placeholder="Contraseña" required>
+                        <button type="submit" class="btn btn-warning w-100">Registrarse</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal de Ingreso -->
-    <div class="modal fade" id="ingresoModal" tabindex="-1" aria-labelledby="ingresoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ingresoModalLabel">Ingresar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="pages/AgoraDesign.html">
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Correo" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="Contraseña" required>
-                        </div>
-                        <div class="mb-3">
-                            <a href="#">¿Olvidaste tu contraseña?</a>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Botón del Chatbot -->
-    <div id="chatbot-icon">
-        <img src="assets/chatbot-icon.png" alt="Chatbot" width="50">
-    </div>
-
-    <!-- Chatbox -->
-    <div id="chatbox">
-        <div id="chat-messages"></div>
-        <div class="input-group">
-            <input type="text" id="user-input" placeholder="Escribe un mensaje..." class="form-control">
-            <button id="send-button" class="btn btn-info">Enviar</button>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS y Script personalizado -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+    <script>
+        document.getElementById('chatbot-button').addEventListener('click', function() {
+            document.getElementById('chatbot-window').classList.toggle('d-none');
+        });
+    </script>
 </body>
 </html>

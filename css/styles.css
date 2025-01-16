@@ -1,124 +1,43 @@
-/* Tipografía de Porcelanosa */
-body {
-    font-family: 'DM Serif Display', serif;
-}
-
-/* Contenedor del video de fondo */
+/* Fondo de video */
 #video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-    display: block;
-}
-
-/* Capa con opacidad negra */
-#video-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* opacidad negra */
-    z-index: 1;
+    z-index: -1;
 }
 
-/* Video de fondo */
 #video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;  /* Asegura que el video esté detrás del overlay */
 }
 
-/* Estilos del contenido */
-.content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
+#video-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Botones centrados */
-button {
-    width: 100%; /* Hace los botones más grandes en dispositivos pequeños */
-}
-
-/* Botones en dispositivos más grandes */
-@media (min-width: 768px) {
-    button {
-        width: auto; /* Vuelve los botones a su tamaño original en pantallas medianas */
-    }
-}
-
-/* Estilo del botón registrarse */
-#btn-registrarse {
-    transition: background-color 0.3s;
+/* Navbar */
+.navbar {
     background-color: transparent;
-    border: 1px solid #cca43d;
-    color: white;
+    transition: background-color 0.5s ease;
 }
 
-#btn-registrarse:hover {
-    background-color: #cca43d;
-    color: white;
-    border-color: #cca43d;
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Estilo del botón ingresar */
-#btn-ingresar {
-    background-color: #cca43d;
-    border-color: #cca43d;
-    color: white;
+/* Secciones */
+section {
+    padding: 100px 0;
 }
 
-#btn-ingresar:hover {
-    background-color: #a3852d;
-    border-color: #a3852d;
-}
-
-/* Estilos de botones dentro de los formularios */
-.modal .btn {
-    background-color: #cca43d; /* El mismo color que el botón ingresar */
-    border-color: #cca43d;
-    color: white;
-}
-
-.modal .btn:hover {
-    background-color: #a3852d;
-    border-color: #a3852d;
-}
-
-/* Estilo del chatbot */
-#chatbot-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: white;
-    border-radius: 50%;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    z-index: 2;
-}
-
-#chatbox {
-    display: none;
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 300px;
-    height: 400px;
-    background-color: #1e1e1e;
-    color: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
-    z-index: 2;
-    flex-direction: column;
+/* Botones */
+#btn-registrarse-nav, #btn-ingresar-nav {
+    border-radius: 20px;
+    font-weight: bold;
 }

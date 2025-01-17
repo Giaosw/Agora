@@ -51,7 +51,7 @@
     <section id="inicio" class="vh-100 d-flex align-items-center justify-content-center text-white">
         <div class="text-center">
             <h1 class="display-3">Bienvenido a Agora</h1>
-            <p>Descubre diseños innovadores y personalizados.</p>
+            <p>Diseña, crea, recibe. La experiencia 3D de Porcelanosa a tu alcance.</p>
         </div>
     </section>
 
@@ -59,7 +59,7 @@
     <section id="que-es-agora" class="vh-100 d-flex align-items-center justify-content-center bg-dark text-white">
         <div class="container">
             <h2 class="text-center">¿Qué es Agora?</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, sapien vel hendrerit fermentum, nisi libero fermentum metus, nec bibendum orci elit a felis.</p>
+            <p>Ágora by Porcelanosa te permite diseñar espacios en 3D y verlos hechos realidad. Elige entre los materiales de Porcelanosa, crea tu diseño online y nosotros lo imprimimos en 3D para entregártelo. Con Ágora, tienes el poder de crear espacios únicos, de forma fácil y con la calidad de Porcelanosa.</p>
         </div>
     </section>
 
@@ -73,10 +73,15 @@
 
     <!-- Botón del Chatbot -->
     <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;">
-        <button id="chatbot-button" class="btn btn-warning rounded-circle shadow">💬</button>
-        <div id="chatbot-window" class="d-none position-absolute bottom-100 end-0 mb-2 p-3 bg-light rounded shadow">
-            <p>Hola ¿En qué te puedo ayudar?</p>
-            <input type="text" class="form-control" placeholder="Escribe un mensaje...">
+        <button id="chatbot-button" class="btn btn-warning rounded-circle shadow" style="width: 60px; height: 60px; font-size: 24px;">💬</button>
+        <div id="chatbot-window" class="d-none position-absolute bottom-100 end-0 mb-2 p-3 bg-light rounded shadow" style="width: 300px; height: 400px;">
+            <div style="height: 85%; overflow-y: auto;">
+                <p>Hola ¿En qué te puedo ayudar?</p>
+            </div>
+            <div class="input-group mt-2">
+                <input type="text" class="form-control" placeholder="Escribe un mensaje...">
+                <button class="btn btn-warning">Enviar</button>
+            </div>
         </div>
     </div>
 
@@ -99,7 +104,24 @@
             </div>
         </div>
     </div>
-
+	<!-- Modal de Ingreso -->
+    <div class="modal fade" id="ingresoModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Ingresar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="pages/AgoraDesign.html">
+                        <input type="email" class="form-control mb-3" placeholder="Correo" required>
+                        <input type="password" class="form-control mb-3" placeholder="Contraseña" required>
+                        <button type="submit" class="btn btn-warning w-100">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>

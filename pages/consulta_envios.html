@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agora - Editor 3D</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container-fluid {
+            height: 100%;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100vh;
+            border: 1px solid #ddd;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            top: 60px; /* Ajuste para que esté debajo del header */
+            right: 0;
+            height: calc(100vh - 60px); /* Ajuste para no tapar el footer */
+            width: 300px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .footer {
+            background-color: #000;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .navbar {
+            background-color: #000;
+            margin-bottom: 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .menu-item {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #495057;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .menu-item:hover {
+            background-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Agora</a>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container-fluid d-flex">
+        <!-- Columna del medio: Canvas 3D -->
+        <div style="position: relative; width: 100%; height: 100vh;">
+            <canvas id="renderCanvas"></canvas>
+        </div>
+
+        <!-- Columna de la derecha: Menú de objetos básicos -->
+        <div class="sidebar" id="rightSidebar">
+            <div class="sidebar-header">Objetos 3D Básicos</div>
+            <div id="objectMenu">
+                <div class="menu-item" id="addBox">Añadir Cubo</div>
+                <div class="menu-item" id="addSphere">Añadir Esfera</div>
+                <div class="menu-item" id="addCylinder">Añadir Cilindro</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Agora - Todos los derechos reservados</p>
+    </div>
+
+    <!-- Bootstrap JS, jQuery y Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Configuración básica de la escena
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+        var scene = new BABYLON.Scene(engine);
+
+        // Cámara de rotación
+        var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 2, 10, BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, true);
+
+        // Luz ambiental
+        var light = new BABYLON.HemisphericLight("light1", BABYLON.Vector3.Up(), scene);
+
+        // Crear la grilla
+        var grid = BABYLON.MeshBuilder.CreateGround("grid", { width: 20, height: 20, subdivisions: 20 }, scene);
+        var gridMaterial = new BABYLON.StandardMaterial("gridMaterial", scene);
+        gridMaterial.wireframe = true;
+        grid.material = gridMaterial;
+        grid.position.y = 0.01; // Elevar ligeramente la grilla para que sea visible
+
+        // Objeto seleccionado
+        var selectedObject = null;
+
+        // Función para agregar un cubo
+        function addBox() {
+            var box = BABYLON.MeshBuilder.CreateBox("box", { size: 2 }, scene);
+            box.position.y = 1;
+        }
+
+        // Función para agregar una esfera
+        function addSphere() {
+            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
+            sphere.position.y = 1;
+        }
+
+        // Función para agregar un cilindro
+        function addCylinder() {
+            var cylinder = BABYLON.MeshBuilder.CreateCylinder("cylinder", { diameter: 2, height: 3 }, scene);
+            cylinder.position.y = 1;
+        }
+
+        // Función de selección y mover objetos
+        var pointerDown = false;
+
+        scene.onPointerDown = function(evt, pickResult) {
+            if (pickResult.hit) {
+                selectedObject = pickResult.pickedMesh;
+                pointerDown = true;
+            }
+        };
+
+        scene.onPointerUp = function() {
+            pointerDown = false;
+        };
+
+        scene.onPointerMove = function(evt) {
+            if (pointerDown && selectedObject) {
+                var pickInfo = scene.pick(scene.pointerX, scene.pointerY);
+                if (pickInfo.hit) {
+                    selectedObject.position.x = pickInfo.pickedPoint.x;
+                    selectedObject.position.z = pickInfo.pickedPoint.z;
+                }
+            }
+        };
+
+        // Asignar funciones a los botones de menú
+        document.getElementById('addBox').addEventListener('click', addBox);
+        document.getElementById('addSphere').addEventListener('click', addSphere);
+        document.getElementById('addCylinder').addEventListener('click', addCylinder);
+
+        // Iniciar el motor de renderizado
+        engine.runRenderLoop(function() {
+            scene.render();
+        });
+
+        // Ajustar el tamaño del canvas cuando se redimensione la ventana
+        window.addEventListener('resize', function() {
+            engine.resize();
+        });
+    </script>
+
+</body>
+</html>

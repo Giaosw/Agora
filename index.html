@@ -67,7 +67,35 @@
     <section id="disenos" class="vh-100 d-flex align-items-center justify-content-center text-white">
         <div class="container">
             <h2 class="text-center">Nuestros Diseños</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card bg-dark text-white">
+                        <img src="images/diseno1.jpg" class="card-img-top" alt="Diseño 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Diseño Moderno</h5>
+                            <p class="card-text">Espacio minimalista con acabados de alta calidad.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark text-white">
+                        <img src="images/diseno2.jpg" class="card-img-top" alt="Diseño 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Diseño Clásico</h5>
+                            <p class="card-text">Elegancia y tradición en cada detalle.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark text-white">
+                        <img src="images/diseno3.jpg" class="card-img-top" alt="Diseño 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Diseño Vanguardista</h5>
+                            <p class="card-text">Innovación y creatividad para espacios únicos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -75,16 +103,15 @@
     <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;">
         <button id="chatbot-button" class="btn btn-warning rounded-circle shadow" style="width: 60px; height: 60px; font-size: 24px;">💬</button>
         <div id="chatbot-window" class="d-none position-absolute bottom-100 end-0 mb-2 p-3 bg-light rounded shadow" style="width: 300px; height: 400px;">
-            <div style="height: 85%; overflow-y: auto;">
-                <p>Hola ¿En qué te puedo ayudar?</p>
+            <div id="chat-messages" style="height: 85%; overflow-y: auto;">
+                <p><strong>Chatbot:</strong> Hola ¿En qué te puedo ayudar?</p>
             </div>
             <div class="input-group mt-2">
-                <input type="text" class="form-control" placeholder="Escribe un mensaje...">
-                <button class="btn btn-warning">Enviar</button>
+                <input type="text" id="chatbot-input" class="form-control" placeholder="Escribe un mensaje...">
+                <button id="chatbot-send" class="btn btn-warning">Enviar</button>
             </div>
         </div>
     </div>
-
     <!-- Modal de Registro -->
     <div class="modal fade" id="registroModal" tabindex="-1">
         <div class="modal-dialog">
@@ -127,6 +154,16 @@
     <script>
         document.getElementById('chatbot-button').addEventListener('click', function() {
             document.getElementById('chatbot-window').classList.toggle('d-none');
+        });
+
+        document.getElementById('chatbot-send').addEventListener('click', function() {
+            const input = document.getElementById('chatbot-input');
+            const messages = document.getElementById('chat-messages');
+            if (input.value.trim() !== '') {
+                messages.innerHTML += `<p><strong>Tú:</strong> ${input.value}</p>`;
+                input.value = '';
+                messages.scrollTop = messages.scrollHeight;
+            }
         });
     </script>
 </body>

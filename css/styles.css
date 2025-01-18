@@ -39,5 +39,11 @@ section {
 /* Botones */
 #btn-registrarse-nav, #btn-ingresar-nav {
     border-radius: 20px;
-    font-weight: bold;
+    font-weight: bold;   
+}
+
+.card-img-top {
+    object-fit: cover; /* This is crucial: it makes the image cover the entire container */
+    height: 250px; /* Set a fixed height */
+    width: 100%; /* Ensure the image takes the full width of the card */
 }

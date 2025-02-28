@@ -4,167 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agora by Porcelanosa</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="70" tabindex="0">
-
-    <!-- Video de fondo con overlay -->
-    <div id="video-container">
-        <video autoplay muted loop id="video-bg">
-            <source src="videos/intro.mp4" type="video/mp4">
-        </video>
-        <div id="video-overlay"></div>
+<body>
+    <div class="container">
+        <div class="overlay"></div>
+        
+        <main class="hero">
+            <div class="content">
+                <h1 class="main-title">Agora</h1>
+                <p class="subtitle">by Porcelanosa</p>
+                <a href="login.html" class="cta-button">Empieza Ya</a>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Agora by Porcelanosa. Todos los derechos reservados</p>
+        </footer>
     </div>
-
-    <!-- Navbar -->
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">Agora</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#inicio">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#que-es-agora">¿Qué es Agora?</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#disenos">Diseños</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="d-flex">
-                <button id="btn-registrarse-nav" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#registroModal">Registrarse</button>
-                <button id="btn-ingresar-nav" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#ingresoModal">Ingresar</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Sección: Inicio -->
-    <section id="inicio" class="vh-100 d-flex align-items-center justify-content-center text-white">
-        <div class="text-center">
-            <h1 class="display-3">Bienvenido a Agora</h1>
-            <p>Diseña, crea, recibe. La experiencia 3D de Porcelanosa a tu alcance.</p>
-        </div>
-    </section>
-
-    <!-- Sección: ¿Qué es Agora? -->
-    <section id="que-es-agora" class="vh-100 d-flex align-items-center justify-content-center bg-dark text-white">
-        <div class="container">
-            <h2 class="text-center">¿Qué es Agora?</h2>
-            <p>Ágora by Porcelanosa te permite diseñar espacios en 3D y verlos hechos realidad. Elige entre los materiales de Porcelanosa, crea tu diseño online y nosotros lo imprimimos en 3D para entregártelo. Con Ágora, tienes el poder de crear espacios únicos, de forma fácil y con la calidad de Porcelanosa.</p>
-        </div>
-    </section>
-
-    <!-- Sección: Diseños -->
-    <section id="disenos" class="vh-100 d-flex align-items-center justify-content-center text-white">
-        <div class="container">
-            <h2 class="text-center">Nuestros Diseños</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card bg-dark text-white">
-                        <img src="images/diseno1.jpg" class="card-img-top" alt="Diseño 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Diseño Moderno</h5>
-                            <p class="card-text">Espacio minimalista con acabados de alta calidad.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card bg-dark text-white">
-                        <img src="images/diseno2.jpg" class="card-img-top" alt="Diseño 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Diseño Clásico</h5>
-                            <p class="card-text">Elegancia y tradición en cada detalle.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card bg-dark text-white">
-                        <img src="images/diseno3.jpg" class="card-img-top" alt="Diseño 3">
-                        <div class="card-body">
-                            <h5 class="card-title">Diseño Vanguardista</h5>
-                            <p class="card-text">Innovación y creatividad para espacios únicos.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Botón del Chatbot -->
-    <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;">
-        <button id="chatbot-button" class="btn btn-warning rounded-circle shadow" style="width: 60px; height: 60px; font-size: 24px;">💬</button>
-        <div id="chatbot-window" class="d-none position-absolute bottom-100 end-0 mb-2 p-3 bg-light rounded shadow" style="width: 300px; height: 400px;">
-            <div id="chat-messages" style="height: 85%; overflow-y: auto;">
-                <p><strong>Chatbot:</strong> Hola ¿En qué te puedo ayudar?</p>
-            </div>
-            <div class="input-group mt-2">
-                <input type="text" id="chatbot-input" class="form-control" placeholder="Escribe un mensaje...">
-                <button id="chatbot-send" class="btn btn-warning">Enviar</button>
-            </div>
-        </div>
-    </div>
-    <!-- Modal de Registro -->
-    <div class="modal fade" id="registroModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Registro</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="pages/AgoraDesign.html">
-                        <input type="email" class="form-control mb-3" placeholder="Correo" required>
-                        <input type="text" class="form-control mb-3" placeholder="Nombre" required>
-                        <input type="password" class="form-control mb-3" placeholder="Contraseña" required>
-                        <button type="submit" class="btn btn-warning w-100">Registrarse</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-	<!-- Modal de Ingreso -->
-    <div class="modal fade" id="ingresoModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Ingresar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="pages/AgoraDesign.html">
-                        <input type="email" class="form-control mb-3" placeholder="Correo" required>
-                        <input type="password" class="form-control mb-3" placeholder="Contraseña" required>
-                        <button type="submit" class="btn btn-warning w-100">Ingresar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('chatbot-button').addEventListener('click', function() {
-            document.getElementById('chatbot-window').classList.toggle('d-none');
-        });
-
-        document.getElementById('chatbot-send').addEventListener('click', function() {
-            const input = document.getElementById('chatbot-input');
-            const messages = document.getElementById('chat-messages');
-            if (input.value.trim() !== '') {
-                messages.innerHTML += `<p><strong>Tú:</strong> ${input.value}</p>`;
-                input.value = '';
-                messages.scrollTop = messages.scrollHeight;
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

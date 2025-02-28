@@ -33,31 +33,29 @@
             color: white;
             padding: 20px;
             position: fixed;
-            top: 60px; /* Ajuste para que esté debajo del header */
+            top: 60px;
             right: 0;
-            height: calc(100vh - 60px); /* Ajuste para no tapar el footer */
+            height: calc(100vh - 60px);
             width: 300px;
             z-index: 1000;
             transition: all 0.3s ease;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
-        .footer {
-            background-color: #000;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        .sidebar-left {
+            width: 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .navbar {
-            background-color: #000;
-            margin-bottom: 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
+        .sidebar-right {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
         }
 
         .sidebar-header {
@@ -77,6 +75,41 @@
         .menu-item:hover {
             background-color: #6c757d;
         }
+
+        .button-box {
+            width: 100%;
+            height: 25%;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-box button {
+            width: 22%;
+            background-color: #495057;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .button-box button:hover {
+            background-color: #6c757d;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .layer-control {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .layer-control button {
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -93,13 +126,56 @@
             <canvas id="renderCanvas"></canvas>
         </div>
 
-        <!-- Columna de la derecha: Menú de objetos básicos -->
-        <div class="sidebar" id="rightSidebar">
-            <div class="sidebar-header">Objetos 3D Básicos</div>
-            <div id="objectMenu">
-                <div class="menu-item" id="addBox">Añadir Cubo</div>
-                <div class="menu-item" id="addSphere">Añadir Esfera</div>
-                <div class="menu-item" id="addCylinder">Añadir Cilindro</div>
+        <!-- Columna de la derecha: Menú -->
+        <div class="sidebar">
+            <div class="sidebar-left">
+                <div class="button-box">
+                    <button>1</button>
+                    <button>2</button>
+                </div>
+                <div class="button-box">
+                    <button>3</button>
+                    <button>4</button>
+                </div>
+            </div>
+
+            <div class="sidebar-right">
+                <div class="sidebar-header">Opciones</div>
+                <div id="objectMenu">
+                    <div class="menu-item" id="addBox">Añadir Cubo</div>
+                    <div class="menu-item" id="addSphere">Añadir Esfera</div>
+                    <div class="menu-item" id="addCylinder">Añadir Cilindro</div>
+                </div>
+
+                <hr>
+
+                <div class="sidebar-header">Capas</div>
+                <div id="layerControls">
+                    <!-- Lista de objetos dinámicos -->
+                </div>
+
+                <hr>
+
+                <div class="sidebar-header">Materiales</div>
+                <div>
+                    <input type="color" id="colorPicker" class="form-control" value="#ffffff">
+                    <button class="btn btn-primary btn-block" id="applyMaterial">Aplicar</button>
+                </div>
+
+                <hr>
+
+                <div class="sidebar-header">Exportar</div>
+                <button class="btn btn-success btn-block" id="exportModel">Exportar a OBJ</button>
+
+                <hr>
+
+                <div class="sidebar-header">Generación IA</div>
+                <div class="input-group">
+                    <input type="text" id="aiPrompt" class="form-control" placeholder="Describe tu diseño...">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary">Generar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -115,84 +191,94 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Configuración básica de la escena
         var canvas = document.getElementById("renderCanvas");
         var engine = new BABYLON.Engine(canvas, true);
         var scene = new BABYLON.Scene(engine);
-
-        // Cámara de rotación
         var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 2, 10, BABYLON.Vector3.Zero(), scene);
         camera.attachControl(canvas, true);
-
-        // Luz ambiental
         var light = new BABYLON.HemisphericLight("light1", BABYLON.Vector3.Up(), scene);
 
-        // Crear la grilla
         var grid = BABYLON.MeshBuilder.CreateGround("grid", { width: 20, height: 20, subdivisions: 20 }, scene);
-        var gridMaterial = new BABYLON.StandardMaterial("gridMaterial", scene);
-        gridMaterial.wireframe = true;
-        grid.material = gridMaterial;
-        grid.position.y = 0.01; // Elevar ligeramente la grilla para que sea visible
+        grid.material = new BABYLON.StandardMaterial("gridMaterial", scene);
+        grid.material.wireframe = true;
 
-        // Objeto seleccionado
-        var selectedObject = null;
+        var objects = [];
 
-        // Función para agregar un cubo
-        function addBox() {
-            var box = BABYLON.MeshBuilder.CreateBox("box", { size: 2 }, scene);
-            box.position.y = 1;
-        }
-
-        // Función para agregar una esfera
-        function addSphere() {
-            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
-            sphere.position.y = 1;
-        }
-
-        // Función para agregar un cilindro
-        function addCylinder() {
-            var cylinder = BABYLON.MeshBuilder.CreateCylinder("cylinder", { diameter: 2, height: 3 }, scene);
-            cylinder.position.y = 1;
-        }
-
-        // Función de selección y mover objetos
-        var pointerDown = false;
-
-        scene.onPointerDown = function(evt, pickResult) {
-            if (pickResult.hit) {
-                selectedObject = pickResult.pickedMesh;
-                pointerDown = true;
+        function addObject(type) {
+            let newObj;
+            switch (type) {
+                case "box":
+                    newObj = BABYLON.MeshBuilder.CreateBox("box", { size: 2 }, scene);
+                    break;
+                case "sphere":
+                    newObj = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
+                    break;
+                case "cylinder":
+                    newObj = BABYLON.MeshBuilder.CreateCylinder("cylinder", { diameter: 2, height: 3 }, scene);
+                    break;
             }
-        };
+            newObj.position.y = 1;
+            objects.push(newObj);
+            updateLayerControls();
+        }
 
-        scene.onPointerUp = function() {
-            pointerDown = false;
-        };
+        function updateLayerControls() {
+            const layerControls = document.getElementById("layerControls");
+            layerControls.innerHTML = "";
 
-        scene.onPointerMove = function(evt) {
-            if (pointerDown && selectedObject) {
-                var pickInfo = scene.pick(scene.pointerX, scene.pointerY);
-                if (pickInfo.hit) {
-                    selectedObject.position.x = pickInfo.pickedPoint.x;
-                    selectedObject.position.z = pickInfo.pickedPoint.z;
-                }
+            objects.forEach((obj, index) => {
+                const layerDiv = document.createElement("div");
+                layerDiv.classList.add("layer-control");
+                layerDiv.innerHTML = `
+                    <span>${obj.name}</span>
+                    <div>
+                        <button class="btn btn-sm btn-info" onclick="toggleVisibility(${index})">👁️</button>
+                        <button class="btn btn-sm btn-warning" onclick="lockObject(${index})">🔒</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteObject(${index})">🗑️</button>
+                    </div>
+                `;
+                layerControls.appendChild(layerDiv);
+            });
+        }
+
+        function toggleVisibility(index) {
+            objects[index].isVisible = !objects[index].isVisible;
+        }
+
+        function lockObject(index) {
+            objects[index].isPickable = !objects[index].isPickable;
+        }
+
+        function deleteObject(index) {
+            objects[index].dispose();
+            objects.splice(index, 1);
+            updateLayerControls();
+        }
+
+        document.getElementById("addBox").addEventListener("click", () => addObject("box"));
+        document.getElementById("addSphere").addEventListener("click", () => addObject("sphere"));
+        document.getElementById("addCylinder").addEventListener("click", () => addObject("cylinder"));
+
+        document.getElementById("applyMaterial").addEventListener("click", () => {
+            const color = document.getElementById("colorPicker").value;
+            if (objects.length > 0) {
+                const material = new BABYLON.StandardMaterial("material", scene);
+                material.diffuseColor = BABYLON.Color3.FromHexString(color);
+                objects[objects.length - 1].material = material;
             }
-        };
-
-        // Asignar funciones a los botones de menú
-        document.getElementById('addBox').addEventListener('click', addBox);
-        document.getElementById('addSphere').addEventListener('click', addSphere);
-        document.getElementById('addCylinder').addEventListener('click', addCylinder);
-
-        // Iniciar el motor de renderizado
-        engine.runRenderLoop(function() {
-            scene.render();
         });
 
-        // Ajustar el tamaño del canvas cuando se redimensione la ventana
-        window.addEventListener('resize', function() {
-            engine.resize();
+        document.getElementById("exportModel").addEventListener("click", () => {
+            const exporter = BABYLON.OBJExport.OBJ(scene);
+            const blob = new Blob([exporter], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "model.obj";
+            a.click();
         });
+
+        engine.runRenderLoop(() => scene.render());
+        window.addEventListener("resize", () => engine.resize());
     </script>
 
 </body>

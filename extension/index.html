@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Flota</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
+</head>
+<body class="dark-mode">
+    <header id="mainHeader" class="text-center py-3 text-white">
+        <h1>SOFIA</h1>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="text-center my-4">
+                    <button id="randomizeBtn" class="btn btn-outline-secondary mx-2" style="display: none;">Randomizar Datos</button>
+                    <button id="startBtn" class="btn btn-outline-success mx-2" >Iniciar Recorrido</button>
+                    <button id="updateBtn" class="btn btn-outline-info mx-2" style="display: none;">Actualizar Recorrido</button>
+                </div>
+
+                <div id="noDataMessage" class="text-center">
+                    <p>Nada que mostrar por el momento.</p>
+                </div>
+
+                <div id="flota" style="display: none;">
+                    <h2>Flota</h2>
+                    <table id="flotaTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Placa</th>
+                                <th>Ubicación</th>
+                                <th style="display: none;">Id_Pedido</th>
+								<th style="display: none;">Latitud</th>
+								<th style="display: none;">Longitud</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flotaTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="entregasPendientes" style="display: none;">
+                    <h2>Entregas Pendientes</h2>
+                    <table id="entregasTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">Id_Pedido</th>
+                                <th>Marca</th>
+                                <th style="display: none;">Latitud</th>
+                                <th style="display: none;">Longitud</th>
+                                <th>Dirección</th>
+                            </tr>
+                        </thead>
+                        <tbody id="entregasTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="planificacion" style="display: none;">
+                    <h2>Planificación</h2>
+                    <table id="planificacionTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">Id_Pedido</th>
+                                <th>Placa</th>
+                                <th>ETA</th>
+                                <th style="display: none;">%final</th>
+                                <th>Tiempo Transcurrido</th>
+                            </tr>
+                        </thead>
+                        <tbody id="planificacionTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="map-container" style="display: none;">
+                    <div id="map"></div>
+					<div id="panel"></div>
+                </div>
+            </div>
+            <div class="col-md-3" id="voiceChatContainer">
+                <div id="voiceChatMessages"></div>
+                <div id="voiceChatInput">
+                    <input type="text" id="textInput" placeholder="Escribe un mensaje..." class="chat-input">
+                    <button id="startButton" class="microphone-button">
+                        <span id="microphoneIcon" class="fa fa-microphone-slash"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkY_zaKMpKf22Ci-VZGh8WfKZ_A4eBlHs&libraries=geometry&callback=initMap" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

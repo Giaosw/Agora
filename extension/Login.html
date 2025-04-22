@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Futurista</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido a S.O.F.I.A. <span class="subtitle">(Seguimiento Óptimo de Flotas con Inteligencia Artificial)</span></h1>
+        <div class="form-wrapper">
+            <div class="form-switcher">
+                <button id="login-btn" class="switcher-btn active">Iniciar Sesión</button>
+                <button id="signup-btn" class="switcher-btn">Registrarse</button>
+                <button id="tracking-btn" class="switcher-btn">Tracking</button>
+            </div>
+            <div class="form login-form active">
+                <h2>Iniciar Sesión</h2>
+                <input type="text" placeholder="Usuario" id="login-username">
+                <input type="password" placeholder="Contraseña" id="login-password">
+                <button id="login-submit">Ingresar</button>
+            </div>
+            <div class="form signup-form">
+                <h2>Registrarse</h2>
+                <input type="text" placeholder="Nombre de Usuario" id="signup-username">
+                <input type="email" placeholder="Correo Electrónico" id="signup-email">
+                <input type="password" placeholder="Contraseña" id="signup-password">
+                <button id="signup-submit">Registrarse</button>
+            </div>
+            <div class="form tracking-form">
+                <h2>Tracking</h2>
+                <input type="text" placeholder="Número de Tracking" id="tracking-number">
+                <input type="date" placeholder="Fecha de Pedido" id="order-date">
+                <button id="tracking-submit">Buscar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

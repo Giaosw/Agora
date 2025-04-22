@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ruta entre dos ciudades</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkY_zaKMpKf22Ci-VZGh8WfKZ_A4eBlHs&libraries=places"></script>
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: { lat: 40.4168, lng: -3.7038 } // Madrid como punto inicial
+            });
+
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            document.getElementById('calculate-route').addEventListener('click', () => {
+                const origin = document.getElementById('origin').value;
+                const destination = document.getElementById('destination').value;
+
+                directionsService.route({
+                    origin: origin,
+                    destination: destination,
+                    travelMode: 'DRIVING'
+                }, (result, status) => {
+                    if (status === 'OK') {
+                        directionsRenderer.setDirections(result);
+                    } else {
+                        alert('Error al calcular la ruta: ' + status);
+                    }
+                });
+            });
+        }
+    </script>
+</head>
+<body onload="initMap()">
+    <h1>Calcula tu ruta óptima</h1>
+    <div>
+        <label for="origin">Ciudad origen:</label>
+        <input type="text" id="origin" placeholder="Ej. Madrid">
+        <label for="destination">Ciudad destino:</label>
+        <input type="text" id="destination" placeholder="Ej. Barcelona">
+        <button id="calculate-route">Calcular ruta</button>
+    </div>
+    <div id="map" style="height: 500px; width: 100%;"></div>
+</body>
+</html>

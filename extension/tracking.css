@@ -1,0 +1,218 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0b132b;
+    color: #81ecec;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    background-color: #1c2541;
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info span {
+    margin-right: 10px;
+}
+
+#chat-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#conversation-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #1c2541;
+    color: #fff;
+}
+
+.user-message,
+.bot-message {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    clear: both;
+}
+
+.user-message {
+    background-color: #3a506b;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #007bff;
+    align-self: flex-start;
+}
+
+.input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #283149;
+}
+
+#text-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-size: 0.9em;
+    resize: none;
+}
+
+#send-btn, #mic-btn {
+    background: none;
+    border: none;
+    color: #28a745;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 10px;
+}
+
+#send-btn:hover, #mic-btn:hover {
+    color: #1e7e34;
+}
+
+#voice-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para el blur */
+    backdrop-filter: blur(5px); /* Efecto blur */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#voice-overlay.hidden {
+    display: none;
+}
+
+#voice-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#start-speech-btn {
+    background: none;
+    border: 2px solid #81ecec;
+    color: #81ecec;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    letter-spacing: 0.1em;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+#start-speech-btn:hover {
+    color: #fff;
+    border-color: #00b8d4;
+}
+
+#start-speech-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, #00b8d4, transparent);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#start-speech-btn:hover::before {
+    opacity: 0.3;
+}
+
+#start-speech-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    animation: border-glow 3s linear infinite;
+}
+
+@keyframes border-glow {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+}
+
+#voice-overlay-sound-wave {
+    display: none;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+#voice-overlay-sound-wave span {
+    display: block;
+    width: 15px;
+    height: 15px;
+    background-color: #81ecec;
+    border-radius: 50%;
+    animation: pulse 1s infinite alternate;
+}
+
+#voice-overlay-sound-wave span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+#voice-overlay-sound-wave span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); }
+}
+
+#close-voice-overlay-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+#close-voice-overlay-btn:hover {
+    color: #c82333;
+}

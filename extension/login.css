@@ -1,0 +1,161 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0b132b; /* Un fondo oscuro y futurista */
+    color: #81ecec; /* Un color de texto brillante */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Para que las ondas no sobresalgan del body */
+}
+
+/* Animación de ondas */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    opacity: 0.4;
+    background: linear-gradient(to bottom, #1c2541, #0b132b);
+    animation: wave 10s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+    z-index: -1;
+}
+
+body::before {
+    background: linear-gradient(to bottom, #3a506b, #1c2541);
+    animation-delay: -5s;
+}
+
+@keyframes wave {
+    0% {
+        transform: translate3d(-50%, 0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate3d(50%, 0, 0) rotate(180deg);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0) rotate(360deg);
+    }
+}
+
+.container {
+    background-color: #1c2541; /* Un contenedor más oscuro */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    width: 450px; /* Aumentar el ancho para el nuevo botón */
+    max-width: 90%;
+    padding: 30px; /* Añadido padding al contenedor para el título */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar el título */
+}
+
+.container h1 {
+    color: #81ecec;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.8em; /* Ajustar el tamaño del título principal si es necesario */
+}
+
+.container h1 .subtitle {
+    font-size: 0.6em; /* Hacer el subtítulo más pequeño */
+    color: #aaa; /* Un color más tenue para el subtítulo */
+    display: block; /* Para que el subtítulo esté en una línea aparte */
+    margin-top: 5px; /* Espacio entre el título y el subtítulo */
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Asegurar que ocupe el ancho del contenedor */
+}
+
+.form-switcher {
+    display: flex;
+    margin-bottom: 20px;
+    background-color: #3a506b; /* Barra de botones */
+    border-radius: 5px; /* Mantener un borde redondeado general */
+    padding: 5px;
+    width: 100%; /* Ocupar el ancho del form-wrapper */
+    justify-content: space-between; /* Espaciar los botones */
+}
+
+.switcher-btn {
+    background: none;
+    color: #fff;
+    border: none;
+    padding: 10px 15px; /* Reducir un poco el padding horizontal */
+    cursor: pointer;
+    font-size: 0.9em; /* Reducir un poco el tamaño de la fuente */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 3px; /* Añadir un pequeño borde redondeado individual */
+    flex-grow: 1; /* Hacer que los botones se expandan por igual */
+    text-align: center;
+}
+
+.form-switcher .active {
+    background-color: #007bff; /* Color activo */
+    color: #fff;
+}
+
+.switcher-btn:hover {
+    background-color: #4b77be;
+}
+
+.form {
+    display: none; /* Ocultar los formularios inicialmente */
+    flex-direction: column;
+    width: 100%;
+    transition: opacity 0.3s ease, transform 0.5s ease;
+}
+
+.form.active {
+    display: flex; /* Mostrar el formulario activo */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"],
+.form input[type="date"] {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-size: 1em;
+}
+
+.form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.form button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos específicos para el formulario de tracking */
+.tracking-form {
+    /* Estilos adicionales si es necesario */
+}

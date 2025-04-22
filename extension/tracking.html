@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento de Envío S.O.F.I.A.</title>
+    <link rel="stylesheet" href="tracking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <h1>SOFIA</h1>
+        <div class="user-info">
+            <span>USER</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <div id="chat-container">
+        <div id="conversation-messages">
+        </div>
+        <div class="input-area">
+            <textarea id="text-input" placeholder="Escribe tu mensaje aquí..."></textarea>
+            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+            <button id="mic-btn"><i class="fas fa-microphone"></i></button>
+        </div>
+    </div>
+
+    <div id="voice-overlay">
+        <div id="voice-content">
+            <button id="start-speech-btn">
+                Comienza a hablar con SOFIA
+            </button>
+            <div id="voice-overlay-sound-wave">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <button id="close-voice-overlay-btn"><i class="fas fa-times"></i></button>
+    </div>
+
+    <script src="tracking.js"></script>
+</body>
+</html>

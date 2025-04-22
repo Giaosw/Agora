@@ -1,0 +1,146 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+header{
+    background-color: #1c2541;
+    border-bottom: 1px solid #283149;
+}
+.map-container {
+    height: 500px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.container-fluid {
+    display: flex; /* Usar flexbox para controlar la altura de las columnas */
+    min-height: 100vh; /* Asegura que el contenedor tenga al menos la altura de la ventana del navegador */
+}
+
+.row {
+    display: flex; /* Usar flexbox para controlar la altura de las columnas dentro de la fila */
+    flex: 1; /* Permite que la fila se expanda para llenar el contenedor */
+}
+
+#voiceChatContainer {
+    height: auto; /* Permite que la altura se ajuste al contenido */
+    border-left: 1px solid #283149;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#voiceChatMessages {
+    flex-grow: 1;
+    overflow-y: auto;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+}
+
+#voiceChatMessages p {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #444;
+    border-radius: 5px;
+}
+
+#voiceChatInput {
+    padding-top: 10px;
+    text-align: center;
+}
+
+/* Estilos para el modo oscuro */
+body.dark-mode {
+    background-color: #1c2541;
+    color: #eee;
+}
+
+body.dark-mode table {
+    background-color: #1c2541;
+    color: #eee;
+}
+
+body.dark-mode .map-container {
+    border-color: #555;
+}
+
+body.dark-mode #voiceChatContainer {
+    border-color: #283149;
+}
+
+body.dark-mode #voiceChatMessages {
+    border-color: #283149;
+}
+
+body.dark-mode #voiceChatMessages p {
+    background-color: #283149;
+    color: #eee;
+}
+
+/* Estilos para el botón de micrófono */
+.microphone-button {
+    background-color: #283149;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.microphone-button:hover {
+    background-color: #5a6268;
+}
+
+.microphone-button:active {
+    background-color: #495057;
+}
+
+/* Estilos para el icono del micrófono */
+#microphoneIcon {
+    font-size: 24px;
+}
+
+.chat-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #283149; /* Cambiar el fondo para el modo oscuro */
+    color: #fff; /* Cambiar el color del texto para el modo oscuro */
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.chat-message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f0f0f0; /* Color de fondo claro */
+    color: #283149; /* Color de texto oscuro */
+}
+
+.dark-mode .chat-message {
+    background-color: #283149; /* Color de fondo oscuro para el modo oscuro */
+    color: #fff; /* Color de texto claro para el modo oscuro */
+}
+
+#panel {
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border: 1px solid #ccc;
+}

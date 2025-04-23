@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = loginUsernameInput.value.trim().toUpperCase();
 
         if (username === 'ADMIN') {
-            window.location.href = 'https://www.google.com';
+            window.location.href = 'index.html';
         } //else if (username === 'USER') {
             //sessionStorage.setItem("nombreUsuario", document.getElementById("login-username").value);
             //window.location.href = 'tracking.html';// Redirige a la otra página

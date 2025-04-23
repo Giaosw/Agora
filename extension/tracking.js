@@ -33,7 +33,7 @@ async function sendMessageToAPI(userMessage) {
         if (userMessage !== '101') {
             // Eliminar el marcador anterior si existe
             conversationContext = conversationContext.replace(" ||contexto arriba|| ", "");
-            conversationContext += userMessage + " ||contexto arriba|| ";
+            conversationContext += " ||contexto arriba|| " + userMessage ;
             messageToSend = conversationContext;
         }
 

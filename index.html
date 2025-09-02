@@ -1,27 +1,239 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agora by Porcelanosa</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <title>Boda - Álbum de Recuerdos</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #fdfcfb, #e2d1c3);
+      color: #333;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    #clock {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    #qr-now {
+      margin: 20px auto;
+      padding: 10px;
+      background: white;
+      border-radius: 12px;
+      width: fit-content;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      width: 180px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #666;
+    }
+    form {
+      margin-top: 15px;
+    }
+    input[type="file"] {
+      margin: 10px 0;
+    }
+    button {
+      background: #c59d5f;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #a67c3d;
+    }
+    #upload-status {
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="overlay"></div>
-        
-        <main class="hero">
-            <div class="content">
-                <h1 class="main-title">Agora</h1>
-                <p class="subtitle">by Porcelanosa</p>
-                <a href="login.html" class="cta-button">Empieza Ya</a>
-            </div>
-        </main>
-        
-        <footer>
-            <p>Agora by Porcelanosa. Todos los derechos reservados</p>
-        </footer>
+
+  <header>
+    <div id="clock"></div>
+    <div id="qr-now"></div>
+  </header>
+
+  <section class="cards">
+    <div class="card" data-slot="ceremonia">Ceremonia</div>
+    <div class="card" data-slot="banquete">Banquete</div>
+    <div class="card" data-slot="fiesta">Fiesta</div>
+  </section>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modal-title"></h2>
+      <canvas id="qr-slot"></canvas>
+      <form id="upload-form">
+        <input type="file" id="file-input" multiple accept="image/*,video/*">
+        <button type="submit">Subir</button>
+      </form>
+      <div id="upload-status"></div>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script>
+    // 🔹 CONFIGURACIÓN
+    // Mapa de "slot" → ID de carpeta en tu Google Drive
+    const folderMap = {
+      ceremonia: "1Hss8TEjwjOy3maKPGZFrfNZoBa67sTtS",
+      banquete: "1TSWvxT2563qumcmWTsyZ5j8jeHfYVRcb",
+      fiesta: "1aN6PIGGEaxzT2zxc1zCRGslXO8HtAPWK"
+    };
+    // URL de tu Apps Script WebApp
+    const UPLOAD_URL = "https://script.google.com/macros/s/AKfycbwrv4NbwOxrO4JFxHsaHuFndIKyJVMIjdNbyaYOd6zh4RWyDtL2IAu-hIyM0Zbtdr1L/exec";
+
+    // Límite máximo por archivo (50 MB)
+    const MAX_FILE_SIZE = 50 * 1024 * 1024;
+
+    // ⏰ Reloj en hora de España
+    function updateClock() {
+      const options = {
+        timeZone: "Europe/Madrid",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      };
+      const now = new Date();
+      document.getElementById("clock").textContent =
+        new Intl.DateTimeFormat("es-ES", options).format(now);
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 📲 QR dinámico de la hora actual
+    function generateNowQR() {
+      const now = new Date();
+      const hourSlot = now.toISOString().slice(0,13).replace(/[-:T]/g,""); // YYYYMMDDHH
+      const url = window.location.origin + window.location.pathname + "?slot=" + hourSlot;
+      const qrContainer = document.getElementById("qr-now");
+      qrContainer.innerHTML = "";
+      const canvas = document.createElement("canvas");
+      qrContainer.appendChild(canvas);
+      QRCode.toCanvas(canvas, url, { width: 150 });
+    }
+    setInterval(generateNowQR, 60000);
+    generateNowQR();
+
+    // 🖼️ Modal y tarjetas
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modal-title");
+    const qrSlot = document.getElementById("qr-slot");
+    const closeBtn = document.querySelector(".close");
+    let currentSlot = null;
+
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => {
+        currentSlot = card.dataset.slot;
+        modalTitle.textContent = card.textContent;
+        modal.style.display = "flex";
+        const url = window.location.origin + window.location.pathname + "?slot=" + currentSlot;
+        QRCode.toCanvas(qrSlot, url, { width: 200 });
+      });
+    });
+    closeBtn.onclick = () => modal.style.display = "none";
+    window.onclick = e => { if (e.target == modal) modal.style.display = "none"; };
+
+    // 📤 Subida de archivos al Apps Script con validación de tamaño
+    document.getElementById("upload-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const files = document.getElementById("file-input").files;
+      if (!files.length) {
+        document.getElementById("upload-status").textContent = "Selecciona al menos un archivo.";
+        return;
+      }
+
+      // 🚨 Chequeo de tamaños
+      for (let file of files) {
+        if (file.size > MAX_FILE_SIZE) {
+          document.getElementById("upload-status").textContent =
+            `El archivo ${file.name} supera los 50MB y no se puede subir.`;
+          return;
+        }
+      }
+
+      const folderId = folderMap[currentSlot];
+      if (!folderId) {
+        document.getElementById("upload-status").textContent = "Carpeta no configurada.";
+        return;
+      }
+
+      const formData = new FormData();
+      for (let file of files) {
+        formData.append("files", file);
+      }
+      formData.append("folderId", folderId);
+
+      document.getElementById("upload-status").textContent = "Subiendo...";
+
+      try {
+        const res = await fetch(UPLOAD_URL, {
+          method: "POST",
+          body: formData
+        });
+        const text = await res.text();
+        document.getElementById("upload-status").textContent = "Éxito: " + text;
+      } catch (err) {
+        document.getElementById("upload-status").textContent = "Error al subir.";
+      }
+    });
+  </script>
+
 </body>
 </html>

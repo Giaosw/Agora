@@ -2,8 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Boda - Álbum de Recuerdos</title>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <title>Boda - Subida de Recuerdos</title>
   <style>
     body {
       margin: 0;
@@ -11,74 +10,30 @@
       background: linear-gradient(to right, #fdfcfb, #e2d1c3);
       color: #333;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
     header {
-      padding: 20px;
-      font-size: 1.5rem;
-      font-weight: bold;
+      margin-bottom: 20px;
     }
     #clock {
       font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-    #qr-now {
-      margin: 20px auto;
-      padding: 10px;
-      background: white;
-      border-radius: 12px;
-      width: fit-content;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .cards {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      cursor: pointer;
-      transition: transform 0.2s;
-      width: 180px;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      position: relative;
-    }
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #666;
+      margin-bottom: 15px;
     }
     form {
-      margin-top: 15px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
     }
     input[type="file"] {
       margin: 10px 0;
+      width: 100%;
     }
     button {
       background: #c59d5f;
@@ -87,6 +42,7 @@
       padding: 10px 15px;
       border-radius: 8px;
       cursor: pointer;
+      width: 100%;
     }
     button:hover {
       background: #a67c3d;
@@ -100,45 +56,29 @@
 <body>
 
   <header>
+    <h1>📸 Comparte tus recuerdos</h1>
     <div id="clock"></div>
-    <div id="qr-now"></div>
   </header>
 
-  <section class="cards">
-    <div class="card" data-slot="ceremonia">Ceremonia</div>
-    <div class="card" data-slot="banquete">Banquete</div>
-    <div class="card" data-slot="fiesta">Fiesta</div>
-  </section>
-
-  <!-- Modal -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 id="modal-title"></h2>
-      <canvas id="qr-slot"></canvas>
-      <form id="upload-form">
-        <input type="file" id="file-input" multiple accept="image/*,video/*">
-        <button type="submit">Subir</button>
-      </form>
-      <div id="upload-status"></div>
-    </div>
-  </div>
+  <form id="upload-form">
+    <p>Selecciona tus fotos o videos y súbelos:</p>
+    <input type="file" id="file-input" multiple accept="image/*,video/*">
+    <button type="submit">Subir</button>
+    <div id="upload-status"></div>
+  </form>
 
   <script>
-    // 🔹 CONFIGURACIÓN
-    // Mapa de "slot" → ID de carpeta en tu Google Drive
-    const folderMap = {
-      ceremonia: "1Hss8TEjwjOy3maKPGZFrfNZoBa67sTtS",
-      banquete: "1TSWvxT2563qumcmWTsyZ5j8jeHfYVRcb",
-      fiesta: "1aN6PIGGEaxzT2zxc1zCRGslXO8HtAPWK"
-    };
-    // URL de tu Apps Script WebApp
-    const UPLOAD_URL = "https://script.google.com/macros/s/AKfycbwrv4NbwOxrO4JFxHsaHuFndIKyJVMIjdNbyaYOd6zh4RWyDtL2IAu-hIyM0Zbtdr1L/exec";
+    // 🔹 CONFIGURACIÓN DE HORARIOS
+    const timeSlots = [
+      { start: "10:00", end: "13:00", folderId: "ID_CARPETA_CEREMONIA" },
+      { start: "13:00", end: "17:00", folderId: "ID_CARPETA_BANQUETE" },
+      { start: "17:00", end: "23:59", folderId: "ID_CARPETA_FIESTA" }
+    ];
 
-    // Límite máximo por archivo (50 MB)
-    const MAX_FILE_SIZE = 50 * 1024 * 1024;
+    const UPLOAD_URL = "PEGA_AQUI_TU_APPS_SCRIPT_WEBAPP_URL";
+    const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
-    // ⏰ Reloj en hora de España
+    // ⏰ Reloj España
     function updateClock() {
       const options = {
         timeZone: "Europe/Madrid",
@@ -157,40 +97,25 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // 📲 QR dinámico de la hora actual
-    function generateNowQR() {
+    // ⏰ Obtener carpeta según hora
+    function getCurrentFolderId() {
       const now = new Date();
-      const hourSlot = now.toISOString().slice(0,13).replace(/[-:T]/g,""); // YYYYMMDDHH
-      const url = window.location.origin + window.location.pathname + "?slot=" + hourSlot;
-      const qrContainer = document.getElementById("qr-now");
-      qrContainer.innerHTML = "";
-      const canvas = document.createElement("canvas");
-      qrContainer.appendChild(canvas);
-      QRCode.toCanvas(canvas, url, { width: 150 });
+      const madridTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Madrid" }));
+      const current = madridTime.getHours() * 60 + madridTime.getMinutes();
+
+      for (let slot of timeSlots) {
+        const [sh, sm] = slot.start.split(":").map(Number);
+        const [eh, em] = slot.end.split(":").map(Number);
+        const startMinutes = sh * 60 + sm;
+        const endMinutes = eh * 60 + em;
+        if (current >= startMinutes && current <= endMinutes) {
+          return slot.folderId;
+        }
+      }
+      return null;
     }
-    setInterval(generateNowQR, 60000);
-    generateNowQR();
 
-    // 🖼️ Modal y tarjetas
-    const modal = document.getElementById("modal");
-    const modalTitle = document.getElementById("modal-title");
-    const qrSlot = document.getElementById("qr-slot");
-    const closeBtn = document.querySelector(".close");
-    let currentSlot = null;
-
-    document.querySelectorAll(".card").forEach(card => {
-      card.addEventListener("click", () => {
-        currentSlot = card.dataset.slot;
-        modalTitle.textContent = card.textContent;
-        modal.style.display = "flex";
-        const url = window.location.origin + window.location.pathname + "?slot=" + currentSlot;
-        QRCode.toCanvas(qrSlot, url, { width: 200 });
-      });
-    });
-    closeBtn.onclick = () => modal.style.display = "none";
-    window.onclick = e => { if (e.target == modal) modal.style.display = "none"; };
-
-    // 📤 Subida de archivos al Apps Script con validación de tamaño
+    // 📤 Subida automática
     document.getElementById("upload-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const files = document.getElementById("file-input").files;
@@ -199,7 +124,7 @@
         return;
       }
 
-      // 🚨 Chequeo de tamaños
+      // Chequeo de tamaños
       for (let file of files) {
         if (file.size > MAX_FILE_SIZE) {
           document.getElementById("upload-status").textContent =
@@ -208,9 +133,10 @@
         }
       }
 
-      const folderId = folderMap[currentSlot];
+      const folderId = getCurrentFolderId();
       if (!folderId) {
-        document.getElementById("upload-status").textContent = "Carpeta no configurada.";
+        document.getElementById("upload-status").textContent =
+          "No hay una carpeta definida para esta hora.";
         return;
       }
 
@@ -228,11 +154,16 @@
           body: formData
         });
         const text = await res.text();
-        document.getElementById("upload-status").textContent = "Éxito: " + text;
+        document.getElementById("upload-status").textContent = "✅ " + text;
       } catch (err) {
-        document.getElementById("upload-status").textContent = "Error al subir.";
+        document.getElementById("upload-status").textContent = "❌ Error al subir.";
       }
     });
+
+    // 🚀 Forzar que al abrir la página en móvil se abra el selector de archivos
+    window.onload = () => {
+      document.getElementById("file-input").click();
+    };
   </script>
 
 </body>

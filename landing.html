@@ -4,50 +4,80 @@
   <meta charset="UTF-8">
   <title>Boda 💍 - Landing</title>
   <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #fff0f6, #ffe5ec, #fff);
-      color: #5a2a2a;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #fff5f7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #4a2c2c;
       text-align: center;
-      padding: 50px;
+      padding: 20px;
     }
 
     .container {
       max-width: 600px;
-      margin: auto;
+      width: 100%;
+      background: #ffffffcc;
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
     }
 
     h1 {
-      font-size: 2.5rem;
-      color: #b91c1c;
-      margin-bottom: 10px;
+      font-size: 2.2rem;
+      color: #d6336c;
+      margin-bottom: 15px;
     }
 
     p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      color: #7a3c3c;
+      font-size: 1rem;
+      margin-bottom: 25px;
+      color: #6a3a3a;
     }
 
+    /* QR */
     #qrcode {
       margin: 30px auto;
-      width: 200px;
-      height: 200px;
+      width: 220px;
+      height: 220px;
+      padding: 10px;
+      background: #fff7fb;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: inline-block;
     }
 
     a {
-      color: #b91c1c;
+      color: #d6336c;
       text-decoration: none;
       font-weight: bold;
+      transition: color 0.3s ease;
     }
 
     a:hover {
+      color: #e83e8c;
       text-decoration: underline;
     }
 
     .small-text {
       font-size: 0.9rem;
-      color: #5a2a2a;
+      color: #4a2c2c;
       margin-top: 20px;
     }
   </style>
@@ -67,11 +97,11 @@
   <script>
     // Generar QR que redirija a la página de recuerdos
     const qr = new QRCode(document.getElementById("qrcode"), {
-        text:"https://giaosw.github.io/Agora/index.html", // Ajusta si tu página está en otro dominio
-        width: 200,
-        height: 200,
-        colorDark: "#b91c1c",
-        colorLight: "#fff0f6",
+        text: "https://giaosw.github.io/Agora/index.html", // Ajusta si tu página está en otro dominio
+        width: 220,
+        height: 220,
+        colorDark: "#d6336c",
+        colorLight: "#fff7fb",
         correctLevel: QRCode.CorrectLevel.H
     });
   </script>

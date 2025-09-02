@@ -1,27 +1,48 @@
+// Abrir selector al click en icono de carpeta
+document.getElementById("selectIcon").addEventListener("click", () => {
+  document.getElementById("fileInput").click();
+});
+
+// Mostrar cantidad de archivos seleccionados
+document.getElementById("fileInput").addEventListener("change", () => {
+  const files = document.getElementById("fileInput").files;
+  const countDiv = document.getElementById("fileCount");
+
+  if (files.length === 0) {
+    countDiv.textContent = "";
+  } else if (files.length === 1) {
+    countDiv.textContent = `1 archivo seleccionado`;
+  } else {
+    countDiv.textContent = `${files.length} archivos seleccionados`;
+  }
+});
+
+// Subir archivos al click en botón
+document.getElementById("uploadBtn").addEventListener("click", () => {
+  if (document.getElementById("fileInput").files.length) {
+    uploadFiles();
+  } else {
+    alert("Primero selecciona archivos para subir");
+  }
+});
+
+// Función original de subida
 async function uploadFiles() {
   const fileInput = document.getElementById("fileInput");
-  const uploadBtn = document.getElementById("uploadBtn");
   const loader = document.getElementById("loader");
   const responseBox = document.getElementById("response");
 
-  if (!fileInput.files.length) {
-    alert("Selecciona al menos un archivo (imagen o video)");
-    return;
-  }
-
-  // Validar peso total (50MB)
   const totalSize = Array.from(fileInput.files).reduce((acc, f) => acc + f.size, 0);
   if (totalSize > 50 * 1024 * 1024) {
     alert("El total de los archivos no puede superar 50 MB");
     return;
   }
 
-  // Mostrar loader
   loader.style.display = "block";
-  uploadBtn.disabled = true;
+  document.getElementById("uploadBtn").disabled = true;
   responseBox.textContent = "Subiendo tus recuerdos... 💕";
 
-  const url = "https://script.google.com/macros/s/AKfycbymBNGv1i_YQCsRtrz0VjqOHxe3odn-NAmkhvPQ7lol0KViYens-HysbAkLkBa1JNEm/exec"; // Cambia por tu Apps Script desplegado
+  const url = "https://script.google.com/macros/s/AKfycbymBNGv1i_YQCsRtrz0VjqOHxe3odn-NAmkhvPQ7lol0KViYens-HysbAkLkBa1JNEm/exec";
   let results = [];
 
   for (const file of fileInput.files) {
@@ -44,9 +65,8 @@ async function uploadFiles() {
     }
   }
 
-  // Restaurar UI
   loader.style.display = "none";
-  uploadBtn.disabled = false;
+  document.getElementById("uploadBtn").disabled = false;
   responseBox.textContent = JSON.stringify(results, null, 2);
 }
 

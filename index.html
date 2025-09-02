@@ -4,21 +4,38 @@
   <meta charset="UTF-8">
   <title>Boda 💍 - Sube tus Fotos</title>
   <link rel="stylesheet" href="pau.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
-    <h1>💖 Nuestra Boda 💖</h1>
-    <p>Sube aquí tus fotos y videos para compartir los recuerdos más bellos ✨</p>
+    <div class="card">
+      <h1>💖 Nuestra Boda 💖</h1>
+      <p>Sube tus fotos y videos para compartir los recuerdos más hermosos ✨</p>
 
-    <input type="file" id="fileInput" accept="image/*,video/*" multiple>
-    <button id="uploadBtn" onclick="uploadFiles()">Subir recuerdos</button>
+      <!-- Input oculto -->
+      <input type="file" id="fileInput" accept="image/*,video/*" multiple>
 
-    <!-- Loader en forma de corazón -->
-    <div id="loader">
-      <div class="heart"></div>
+      <!-- Icono solo para seleccionar archivos -->
+      <div id="selectIcon" title="Seleccionar archivos">
+        <i class="fas fa-folder-open"></i> Elegir archivos
+      </div>
+
+      <!-- Mensaje de archivos seleccionados -->
+      <div id="fileCount" class="file-count"></div>
+
+      <!-- Botón de subir archivos -->
+      <div class="button-container">
+        <button id="uploadBtn">Subir archivos</button>
+      </div>
+
+      <!-- Loader moderno -->
+      <div id="loader">
+        <div class="heart"></div>
+        <p>Cargando...</p>
+      </div>
+
+      <pre id="response"></pre>
     </div>
-
-    <pre id="response"></pre>
   </div>
 
   <script src="pau.js"></script>

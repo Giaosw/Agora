@@ -1,100 +1,165 @@
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #fff0f6, #ffe5ec, #fff);
-  color: #5a2a2a;
-  text-align: center;
-  padding: 50px;
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffe6f0, #fff5f7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #4a2c2c;
+}
+
+/* Contenedor principal */
+.container {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: #ffffffcc;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Títulos y párrafos */
 h1 {
-  font-size: 2.5rem;
-  color: #b91c1c;
+  font-size: 2.2rem;
+  color: #d6336c;
   margin-bottom: 10px;
 }
 
 p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  color: #7a3c3c;
+  font-size: 1rem;
+  margin-bottom: 25px;
+  color: #6a3a3a;
 }
 
+/* Input oculto */
 input[type="file"] {
-  margin: 20px auto;
-  display: block;
+  display: none;
 }
 
+/* Icono para seleccionar */
+#selectIcon {
+  font-size: 1.5rem;
+  color: #e83e8c;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#selectIcon:hover {
+  transform: scale(1.1);
+  color: #d6336c;
+}
+
+/* Contador de archivos */
+.file-count {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #d6336c;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Contenedor del botón */
+.button-container {
+  margin-bottom: 20px; /* Separación del loader */
+}
+
+/* Botón de subir */
 button {
-  background: #b91c1c;
+  background: linear-gradient(135deg, #d6336c, #e83e8c);
   color: white;
   font-size: 1rem;
-  padding: 12px 25px;
+  padding: 12px 30px;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(232, 62, 140, 0.4);
 }
 
 button:hover {
-  background: #e11d48;
   transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(232, 62, 140, 0.6);
 }
 
 button:disabled {
-  background: #aaa;
+  background: #ccc;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* Loader */
 #loader {
   display: none;
   margin: 20px auto;
+  text-align: center;
 }
 
 .heart {
-  width: 50px;
-  height: 50px;
-  background: #e11d48;
+  width: 60px;
+  height: 60px;
+  background: #e83e8c;
   position: relative;
   transform: rotate(-45deg);
   animation: heartbeat 1s infinite;
-  margin: 20px auto;
+  margin: 0 auto 10px;
 }
 
 .heart::before,
 .heart::after {
   content: "";
-  width: 50px;
-  height: 50px;
-  background: #e11d48;
+  width: 60px;
+  height: 60px;
+  background: #e83e8c;
   border-radius: 50%;
   position: absolute;
 }
 
 .heart::before {
-  top: -25px;
+  top: -30px;
   left: 0;
 }
 
 .heart::after {
-  left: 25px;
+  left: 30px;
   top: 0;
 }
 
 @keyframes heartbeat {
   0%, 100% { transform: scale(1) rotate(-45deg); }
-  50% { transform: scale(1.2) rotate(-45deg); }
+  50% { transform: scale(1.3) rotate(-45deg); }
 }
 
+/* Response box */
 pre {
-  background: #fff;
+  background: #fff7fb;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-top: 20px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333;
+  max-width: 100%;
+  color: #4a2c2c;
   font-size: 0.9rem;
   text-align: left;
   overflow-x: auto;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }

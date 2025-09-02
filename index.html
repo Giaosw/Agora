@@ -2,168 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Boda - Subida de Recuerdos</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #fdfcfb, #e2d1c3);
-      color: #333;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    header { margin-bottom: 20px; }
-    #clock { font-size: 1.2rem; margin-bottom: 15px; }
-    form {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 90%;
-      max-width: 400px;
-    }
-    input[type="file"] { margin: 10px 0; width: 100%; }
-    button {
-      background: #c59d5f;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover { background: #a67c3d; }
-    #upload-status { margin-top: 10px; font-size: 0.9rem; }
-  </style>
+  <title>Boda 💍 - Sube tus Fotos</title>
+  <link rel="stylesheet" href="pau.css">
 </head>
 <body>
+  <div class="container">
+    <h1>💖 Nuestra Boda 💖</h1>
+    <p>Sube aquí tus fotos y videos para compartir los recuerdos más bellos ✨</p>
 
-<header>
-  <h1>📸 Comparte tus recuerdos</h1>
-  <div id="clock"></div>
-</header>
+    <input type="file" id="fileInput" accept="image/*,video/*" multiple>
+    <div id="dropArea">📂 Arrastra tus fotos/videos aquí o haz click para elegir archivos</div>
 
-<form id="upload-form">
-  <p>Selecciona tus fotos o videos y súbelos:</p>
-  <input type="file" id="file-input" multiple accept="image/*,video/*">
-  <button type="submit">Subir</button>
-  <div id="upload-status"></div>
-</form>
+    <button id="uploadBtn" onclick="uploadFiles()">Subir recuerdos</button>
 
-<script>
-const timeSlots = [
-  { start: "14:00", end: "14:30", folderId: "1Hss8TEjwjOy3maKPGZFrfNZoBa67sTtS" },
-  { start: "14:31", end: "15:00", folderId: "1TSWvxT2563qumcmWTsyZ5j8jeHfYVRcb" },
-  { start: "15:01", end: "16:00", folderId: "1aN6PIGGEaxzT2zxc1zCRGslXO8HtAPWK" }
-];
+    <!-- Loader en forma de corazón -->
+    <div id="loader">
+      <div class="heart"></div>
+    </div>
 
-const UPLOAD_URL = "https://script.google.com/macros/s/AKfycbx4drdZZXKhnAGa1sPci68oW_jc_XqxqBlVBZT-egVukTw1MfNtCVKFRfiQ_1mWjiYa/exec";
-const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
+    <pre id="response"></pre>
+  </div>
 
-// ⏰ Reloj España
-function updateClock() {
-  const options = {
-    timeZone: "Europe/Madrid",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  };
-  const now = new Date();
-  document.getElementById("clock").textContent =
-    new Intl.DateTimeFormat("es-ES", options).format(now);
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// ⏰ Obtener carpeta según hora
-function getCurrentFolderId() {
-  const now = new Date();
-  const madridTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Madrid" }));
-  const current = madridTime.getHours() * 60 + madridTime.getMinutes();
-
-  for (let slot of timeSlots) {
-    const [sh, sm] = slot.start.split(":").map(Number);
-    const [eh, em] = slot.end.split(":").map(Number);
-    const startMinutes = sh * 60 + sm;
-    const endMinutes = eh * 60 + em;
-    if (current >= startMinutes && current <= endMinutes) {
-      return slot.folderId;
-    }
-  }
-  return null;
-}
-
-// Función para subir un solo archivo en Base64
-async function uploadFile(file, folderId) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = async () => {
-      const base64 = reader.result.split(",")[1]; // solo datos Base64
-      const formData = new FormData();
-      formData.append("file", base64);
-      formData.append("folderId", folderId);
-      formData.append("fileName", file.name); // Enviamos nombre original
-
-      try {
-        const res = await fetch(UPLOAD_URL, { method: "POST", body: formData });
-        const text = await res.text();
-        resolve(text);
-      } catch (err) {
-        reject(err);
-      }
-    };
-    reader.onerror = () => reject(reader.error);
-  });
-}
-
-// Evento submit del formulario
-document.getElementById("upload-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const files = document.getElementById("file-input").files;
-  if (!files.length) {
-    document.getElementById("upload-status").textContent = "Selecciona al menos un archivo.";
-    return;
-  }
-
-  for (let file of files) {
-    if (file.size > MAX_FILE_SIZE) {
-      document.getElementById("upload-status").textContent =
-        `El archivo ${file.name} supera los 50MB y no se puede subir.`;
-      return;
-    }
-  }
-
-  const folderId = getCurrentFolderId();
-  if (!folderId) {
-    document.getElementById("upload-status").textContent =
-      "No hay una carpeta definida para esta hora.";
-    return;
-  }
-
-  document.getElementById("upload-status").textContent = "Subiendo...";
-
-  for (let file of files) {
-    try {
-      const result = await uploadFile(file, folderId);
-      document.getElementById("upload-status").textContent = "✅ " + result;
-    } catch (err) {
-      document.getElementById("upload-status").textContent = "❌ Error al subir: " + err;
-    }
-  }
-});
-
-// Abrir selector de archivos en móvil
-window.onload = () => document.getElementById("file-input").click();
-</script>
-
+  <script src="pau.js"></script>
 </body>
 </html>

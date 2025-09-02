@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Boda 💍 - Landing</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fff0f6, #ffe5ec, #fff);
+      color: #5a2a2a;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #b91c1c;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #7a3c3c;
+    }
+
+    #qrcode {
+      margin: 30px auto;
+      width: 200px;
+      height: 200px;
+    }
+
+    a {
+      color: #b91c1c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .small-text {
+      font-size: 0.9rem;
+      color: #5a2a2a;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💖 Nuestra Boda 💖</h1>
+    <p>¡Escanea el QR y sube tus fotos y videos para compartir los recuerdos más bellos ✨!</p>
+
+    <div id="qrcode"></div>
+
+    <p class="small-text">O visita directamente: <a href="index.html" target="_blank">Sube tus recuerdos aquí</a></p>
+  </div>
+
+  <!-- Librería QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    // Generar QR que redirija a la página de recuerdos
+    const qr = new QRCode(document.getElementById("qrcode"), {
+        text: window.location.origin + "/index.html", // Ajusta si tu página está en otro dominio
+        width: 200,
+        height: 200,
+        colorDark: "#b91c1c",
+        colorLight: "#fff0f6",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+</body>
+</html>

@@ -21,7 +21,7 @@ async function uploadFiles() {
   uploadBtn.disabled = true;
   responseBox.textContent = "Subiendo tus recuerdos... 💕";
 
-  const url = "https://script.google.com/macros/s/AKfycbwV_lxqs037qNNCtBPmOSWff1lhyLG1vmnRmFLbOooBqDRqmtfFSvkN0ksVDGo8_u3o/exec"; // Cambia por tu Apps Script desplegado
+  const url = "https://script.google.com/macros/s/AKfycbymBNGv1i_YQCsRtrz0VjqOHxe3odn-NAmkhvPQ7lol0KViYens-HysbAkLkBa1JNEm/exec"; // Cambia por tu Apps Script desplegado
   let results = [];
 
   for (const file of fileInput.files) {

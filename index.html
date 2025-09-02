@@ -101,7 +101,31 @@ function getCurrentFolderId() {
   return null;
 }
 
-// 📤 Subida automática
+// Función para subir un solo archivo en Base64
+async function uploadFile(file, folderId) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const base64 = reader.result.split(",")[1]; // solo datos Base64
+      const formData = new FormData();
+      formData.append("file", base64);
+      formData.append("folderId", folderId);
+      formData.append("fileName", file.name); // Enviamos nombre original
+
+      try {
+        const res = await fetch(UPLOAD_URL, { method: "POST", body: formData });
+        const text = await res.text();
+        resolve(text);
+      } catch (err) {
+        reject(err);
+      }
+    };
+    reader.onerror = () => reject(reader.error);
+  });
+}
+
+// Evento submit del formulario
 document.getElementById("upload-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const files = document.getElementById("file-input").files;
@@ -127,23 +151,17 @@ document.getElementById("upload-form").addEventListener("submit", async (e) => {
 
   document.getElementById("upload-status").textContent = "Subiendo...";
 
-  // Subir cada archivo individualmente para evitar problemas de límites
   for (let file of files) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("folderId", folderId);
-
     try {
-      const res = await fetch(UPLOAD_URL, { method: "POST", body: formData });
-      const text = await res.text();
-      document.getElementById("upload-status").textContent = "✅ " + text;
+      const result = await uploadFile(file, folderId);
+      document.getElementById("upload-status").textContent = "✅ " + result;
     } catch (err) {
       document.getElementById("upload-status").textContent = "❌ Error al subir: " + err;
     }
   }
 });
 
-// 🚀 Abrir selector en móvil
+// Abrir selector de archivos en móvil
 window.onload = () => document.getElementById("file-input").click();
 </script>
 

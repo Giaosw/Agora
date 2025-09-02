@@ -19,7 +19,8 @@ p {
 }
 
 input[type="file"] {
-  display: none; /* Ocultar input original */
+  margin: 20px auto;
+  display: block;
 }
 
 button {
@@ -96,22 +97,4 @@ pre {
   text-align: left;
   overflow-x: auto;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Estilo del área de arrastrar y soltar */
-#dropArea {
-  border: 2px dashed #b91c1c;
-  border-radius: 15px;
-  padding: 40px;
-  margin: 20px auto;
-  max-width: 500px;
-  cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  color: #b91c1c;
-  font-size: 1.1rem;
-}
-
-#dropArea.hover {
-  background: #ffe5ec;
-  border-color: #e11d48;
 }

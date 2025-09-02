@@ -21,7 +21,7 @@ async function uploadFiles() {
   uploadBtn.disabled = true;
   responseBox.textContent = "Subiendo tus recuerdos... 💕";
 
-  const url = "https://script.google.com/macros/s/AKfycbzT_S7kaeExAxLS2yAXSWRDuA3bf5dXo4S4J9FYl7JTnYI0uG_XeF97iOpDoe5iuU1l/exec"; // Cambia por tu Apps Script desplegado
+  const url = "https://script.google.com/macros/s/AKfycbz7S8Avm4-TLNXmSuPe8DrSacjeFpqLNEk6m0ApuBOgmlrOEf_9u_t5smSabQJbd4s/exec"; // Cambia por tu Apps Script desplegado
   let results = [];
 
   for (const file of fileInput.files) {
@@ -58,32 +58,3 @@ function toBase64(file) {
     reader.readAsDataURL(file);
   });
 }
-
-/* -----------------------------
-   Drag & Drop area
------------------------------ */
-const dropArea = document.getElementById("dropArea");
-const fileInputElem = document.getElementById("fileInput");
-
-// Click en dropArea abre selector
-dropArea.addEventListener("click", () => fileInputElem.click());
-
-// Manejar drag & drop
-dropArea.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  dropArea.classList.add("hover");
-});
-
-dropArea.addEventListener("dragleave", () => {
-  dropArea.classList.remove("hover");
-});
-
-dropArea.addEventListener("drop", (e) => {
-  e.preventDefault();
-  dropArea.classList.remove("hover");
-  const files = e.dataTransfer.files;
-  if (files.length) {
-    fileInputElem.files = files; // Actualiza el input
-    // Espera a que el usuario haga click en "Subir recuerdos"
-  }
-});

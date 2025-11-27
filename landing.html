@@ -88,31 +88,15 @@
   <script>
     const qrURL = "https://giaosw.github.io/Agora/index.html"; // URL de la página de recuerdos
 
-    // Generar QR
-    const qr = new QRCode(document.getElementById("qrcode"), {
-        text: qrURL,
-        width: 220,
-        height: 220,
-        colorDark: "#d6336c",
-        colorLight: "#fff7fb",
-        correctLevel: QRCode.CorrectLevel.H
+    // Generar QR normal
+    new QRCode(document.getElementById("qrcode"), {
+      text: qrURL,
+      width: 220,
+      height: 220,
+      colorDark: "#d6336c",
+      colorLight: "#fff7fb",
+      correctLevel: QRCode.CorrectLevel.H
     });
-
-    // Agregar logo en el centro del QR
-    setTimeout(() => {
-      const qrCanvas = document.querySelector("#qrcode canvas");
-      if (!qrCanvas) return;
-
-      const ctx = qrCanvas.getContext("2d");
-      const logo = new Image();
-      logo.src = "PauQR.JPG"; // tu imagen local
-      logo.onload = () => {
-        const logoSize = qrCanvas.width * 0.25; // 25% del QR
-        const x = (qrCanvas.width - logoSize) / 2;
-        const y = (qrCanvas.height - logoSize) / 2;
-        ctx.drawImage(logo, x, y, logoSize, logoSize);
-      };
-    }, 300);
   </script>
 </body>
 </html>

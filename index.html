@@ -1,43 +1,337 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Boda 💍 - Sube tus Fotos</title>
-  <link rel="stylesheet" href="pau.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Advisory | Tu Visado Global, Simplificado y Automatizado</title>
+    <!-- Carga de Tailwind CSS para un diseño moderno y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Lucide Icons para iconos limpios y modernos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Configuración de color y fuente base para el tema oscuro/futurista */
+        :root {
+            --color-primary: #2DD4BF; /* Teal/Turquesa vibrante del logo */
+            --color-secondary: #3B82F6; /* Azul profundo del logo */
+            --color-dark: #0F172A; /* Slate-900, fondo oscuro */
+            --color-card-bg: #1E293B; /* Slate-800, fondo de tarjeta */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-dark);
+            color: #E2E8F0; /* Texto claro */
+            scroll-behavior: smooth;
+        }
+        /* Estilo de resaltado para los degradados del logo/futurista */
+        .text-flow {
+            background-image: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        /* Efecto de 'neón' sutil en botones y cards */
+        .btn-flow {
+            background-color: var(--color-primary);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
+        }
+        .btn-flow:hover {
+            background-color: var(--color-secondary);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
+            transform: translateY(-2px);
+        }
+        .card-flow {
+            background-color: var(--color-card-bg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(45, 212, 191, 0.1);
+        }
+        .card-flow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Estilos específicos para la sección de Contacto (Input/TextArea) */
+        .input-flow {
+            background-color: var(--color-dark);
+            border: 1px solid #475569; /* Slate-600 */
+            color: #E2E8F0;
+            transition: border-color 0.3s;
+        }
+        .input-flow:focus {
+            border-color: var(--color-primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.3);
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <div class="card">
-      <h1>💖 Nuestra Boda 💖</h1>
-      <p>Sube tus fotos y videos para compartir los recuerdos más hermosos ✨</p>
+<body class="min-h-screen">
 
-      <!-- Input oculto -->
-      <input type="file" id="fileInput" accept="image/*,video/*" multiple>
+    <!-- Encabezado (Header) y Navegación -->
+    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo (Simulado con los colores de Flow Advisory) -->
+            <a href="#inicio" class="text-3xl font-extrabold tracking-tight">
+                <span class="text-flow">FLOW</span> <span class="text-gray-400">ADVISORY</span>
+            </a>
+            <!-- Navegación de Escritorio -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#quienes-somos" class="hover:text-flow transition duration-300">Quienes Somos</a>
+                <a href="#servicios" class="hover:text-flow transition duration-300">Servicios</a>
+                <a href="#proceso" class="hover:text-flow transition duration-300">Nuestro Enfoque</a>
+                <a href="#contacto" class="hover:text-flow transition duration-300">Contacto</a>
+            </nav>
+            <!-- Botón de Menú Móvil (No implementaremos la funcionalidad de menú móvil completo, solo el botón) -->
+            <button class="md:hidden p-2 rounded-md hover:bg-gray-700 transition duration-300" aria-label="Menu">
+                <i data-lucide="menu" class="w-6 h-6 text-flow"></i>
+            </button>
+        </div>
+    </header>
 
-      <!-- Icono solo para seleccionar archivos -->
-      <div id="selectIcon" title="Seleccionar archivos">
-        <i class="fas fa-folder-open"></i> Elegir archivos
-      </div>
+    <main>
+        <!-- Sección Hero (Inicio) -->
+        <section id="inicio" class="py-24 md:py-32 text-center relative overflow-hidden">
+            <!-- Fondo de patrón futurista sutil (usando un gradiente radial) -->
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-color-teal-900)_0%,_transparent_70%)] opacity-30"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
+                    Tu Visado Global, <br class="sm:hidden"><span class="text-flow">Simplificado y Automatizado.</span>
+                </h1>
+                <p class="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+                    Flow Advisory es la plataforma peruana que te lleva al mundo. Gestionamos tu visado de turismo (EE. UU.) o estudio (Reino Unido/España) con tecnología de punta y acompañamiento humano.
+                </p>
+                <a href="#servicios" class="inline-block px-8 py-3 rounded-full font-semibold uppercase tracking-wider btn-flow shadow-lg">
+                    Comienza tu Viaje Hoy
+                </a>
+            </div>
+        </section>
 
-      <!-- Mensaje de archivos seleccionados -->
-      <div id="fileCount" class="file-count"></div>
+        <!-- Sección Quienes Somos (About Us) -->
+        <section id="quienes-somos" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <span class="text-flow">Nuestra Misión</span>
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <p class="text-lg mb-6 text-gray-300">
+                            Nacimos en Perú con el propósito de desmitificar y simplificar el proceso de aplicación de visados, que a menudo es complejo y estresante. Nos enfocamos en las familias y jóvenes peruanos que sueñan con explorar Estados Unidos o estudiar en Europa.
+                        </p>
+                        <p class="text-lg text-gray-300 border-l-4 border-flow pl-4 italic">
+                            "Combinamos la eficiencia de la automatización tecnológica con la calidez del acompañamiento personalizado, asegurando que tu única preocupación sea disfrutar el destino."
+                        </p>
+                    </div>
+                    <!-- Icono o ilustración de tecnología/flow -->
+                    <div class="text-center p-8 bg-gray-800 rounded-xl shadow-2xl">
+                        <i data-lucide="infinity" class="w-20 h-20 mx-auto text-flow mb-4 opacity-70"></i>
+                        <h3 class="text-xl font-semibold text-white">Flujo Continuo</h3>
+                        <p class="text-gray-400 mt-2">Garantizamos una experiencia sin fricciones de inicio a fin.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <!-- Botón de subir archivos -->
-      <div class="button-container">
-        <button id="uploadBtn">Subir archivos</button>
-      </div>
+        <!-- Sección Servicios -->
+        <section id="servicios" class="py-16 md:py-24 bg-gray-800/50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+                    <span class="text-flow">Servicios</span> que te Conectan con el Mundo
+                </h2>
+                <p class="text-xl text-gray-400 text-center mb-12">
+                    Nuestras áreas de especialización, impulsadas por tecnología.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8">
 
-      <!-- Loader moderno -->
-      <div id="loader">
-        <div class="heart"></div>
-        <p>Cargando...</p>
-      </div>
+                    <!-- Tarjeta 1: Visado de Turismo EE. UU. -->
+                    <div class="card-flow p-6 rounded-xl shadow-lg border-t-4 border-flow">
+                        <i data-lucide="plane" class="w-10 h-10 text-flow mb-4"></i>
+                        <h3 class="text-2xl font-semibold mb-3">Visado de Turismo (EE. UU.)</h3>
+                        <p class="text-gray-400">
+                            Asistencia completa para la aplicación del visado B1/B2. Minimizamos errores con nuestra plataforma automatizada para maximizar tus posibilidades de aprobación.
+                        </p>
+                    </div>
 
-      <pre id="response"></pre>
-    </div>
-  </div>
+                    <!-- Tarjeta 2: Visado de Estudio Reino Unido -->
+                    <div class="card-flow p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
+                        <i data-lucide="graduation-cap" class="w-10 h-10 text-blue-500 mb-4"></i>
+                        <h3 class="text-2xl font-semibold mb-3">Estudio (Reino Unido)</h3>
+                        <p class="text-gray-400">
+                            Desde la selección de la institución hasta la obtención de tu visado de estudiante. Un proceso diseñado para que los jóvenes se concentren solo en sus estudios.
+                        </p>
+                    </div>
 
-  <script src="pau.js"></script>
+                    <!-- Tarjeta 3: Visado de Estudio España -->
+                    <div class="card-flow p-6 rounded-xl shadow-lg border-t-4 border-flow">
+                        <i data-lucide="book-open-text" class="w-10 h-10 text-flow mb-4"></i>
+                        <h3 class="text-2xl font-semibold mb-3">Estudio (España)</h3>
+                        <p class="text-gray-400">
+                            Te guiamos en cada requisito para tu visado de estudio en España. Soporte constante para que la burocracia no sea un obstáculo para tu futuro.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Nuestro Enfoque (Proceso/Diferenciador) -->
+        <section id="proceso" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    Nuestro Enfoque: <span class="text-flow">Tecnología y Acompañamiento</span>
+                </h2>
+                <div class="max-w-4xl mx-auto space-y-12">
+                    <!-- Diferenciador 1: Automatización -->
+                    <div class="flex flex-col md:flex-row items-start card-flow p-6 rounded-xl">
+                        <i data-lucide="cog" class="w-10 h-10 text-flow flex-shrink-0 mr-6 mt-1"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-white">1. Automatización Inteligente</h3>
+                            <p class="text-gray-400">
+                                Utilizamos tecnología avanzada para pre-llenar formularios, verificar la coherencia de los datos y gestionar la documentación de forma digital. Esto reduce drásticamente el tiempo de aplicación y el riesgo de errores.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Diferenciador 2: Acompañamiento Personalizado -->
+                    <div class="flex flex-col md:flex-row items-start card-flow p-6 rounded-xl">
+                        <i data-lucide="users" class="w-10 h-10 text-blue-500 flex-shrink-0 mr-6 mt-1"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-white">2. Acompañamiento Paso a Paso</h3>
+                            <p class="text-gray-400">
+                                Un asesor dedicado te acompaña en cada etapa, desde la recolección inicial de documentos hasta la preparación para tu entrevista consular. Hacemos que un proceso complejo sea sencillo y sin estrés.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Diferenciador 3: Enfoque Local (Perú) -->
+                    <div class="flex flex-col md:flex-row items-start card-flow p-6 rounded-xl">
+                        <i data-lucide="map-pin" class="w-10 h-10 text-flow flex-shrink-0 mr-6 mt-1"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-white">3. Expertise Peruana</h3>
+                            <p class="text-gray-400">
+                                Entendemos las particularidades y desafíos del contexto peruano. Nuestro enfoque localizado garantiza que la asesoría sea relevante y precisa para nuestros clientes en el país.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Contacto -->
+        <section id="contacto" class="py-16 md:py-24 bg-gray-800/50">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+                    <span class="text-flow">Contáctanos</span>
+                </h2>
+                <p class="text-xl text-gray-400 text-center mb-12">
+                    ¿Listo para simplificar tu viaje? Déjanos tu consulta y te responderemos en breve.
+                </p>
+
+                <div class="card-flow p-8 rounded-xl shadow-2xl">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="nombre" class="block text-sm font-medium text-gray-300 mb-2">Nombre Completo</label>
+                            <input type="text" id="nombre" class="w-full p-3 rounded-lg input-flow" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Correo Electrónico</label>
+                            <input type="email" id="email" class="w-full p-3 rounded-lg input-flow" placeholder="tucorreo@ejemplo.com">
+                        </div>
+                        <div>
+                            <label for="mensaje" class="block text-sm font-medium text-gray-300 mb-2">Mensaje</label>
+                            <textarea id="mensaje" rows="4" class="w-full p-3 rounded-lg input-flow" placeholder="Tu consulta sobre visados"></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-6 py-3 rounded-lg font-semibold uppercase tracking-wider btn-flow hover:text-white">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de Página (Footer) con Redes Sociales -->
+    <footer class="bg-gray-900 border-t border-gray-700 mt-12 py-8">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <!-- Columna 1: Información de Contacto Rápida -->
+            <div>
+                <h4 class="text-xl font-bold text-flow mb-4">Flow Advisory</h4>
+                <p class="text-gray-400">Tu Viaje. Simplificado. Automatizado.</p>
+                <p class="text-gray-400 mt-2">Lima, Perú</p>
+            </div>
+
+            <!-- Columna 2: Navegación Rápida -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Links Rápidos</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#quienes-somos" class="hover:text-flow transition">Quienes Somos</a></li>
+                    <li><a href="#servicios" class="hover:text-flow transition">Servicios</a></li>
+                    <li><a href="#proceso" class="hover:text-flow transition">Nuestro Enfoque</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Redes Sociales -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Síguenos</h4>
+                <div class="flex justify-center md:justify-start space-x-6">
+                    <!-- Iconos de Redes Sociales (Facebook, Instagram, LinkedIn) -->
+                    <a href="#" target="_blank" class="text-gray-400 hover:text-flow transition-colors" aria-label="Facebook">
+                        <i data-lucide="facebook" class="w-6 h-6"></i>
+                    </a>
+                    <a href="#" target="_blank" class="text-gray-400 hover:text-flow transition-colors" aria-label="Instagram">
+                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </a>
+                    <a href="#" target="_blank" class="text-gray-400 hover:text-flow transition-colors" aria-label="LinkedIn">
+                        <i data-lucide="linkedin" class="w-6 h-6"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 mt-8 border-t border-gray-800 pt-4">
+            &copy; 2025 Flow Advisory. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- Script de inicialización de iconos y smooth scrolling -->
+    <script>
+        // Inicializa los iconos de Lucide
+        lucide.createIcons();
+
+        // Pequeño script para manejar el scroll suave (opcional, ya cubierto por CSS)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Previene el comportamiento de salto inmediato del ancla
+                e.preventDefault();
+
+                // Obtiene el elemento al que apunta el href
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    // Desplaza la ventana suavemente hasta el elemento
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Simulación de envío de formulario (solo para mostrar mensaje sin backend)
+        const contactForm = document.querySelector('#contacto form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+
+                // Muestra un mensaje de éxito temporal
+                submitButton.innerHTML = '¡Mensaje Enviado! Gracias.';
+                submitButton.classList.add('bg-green-600', 'btn-flow');
+                
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.classList.remove('bg-green-600', 'btn-flow');
+                }, 3000);
+            });
+        }
+    </script>
 </body>
 </html>
